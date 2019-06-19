@@ -9,7 +9,7 @@ class Ball {
     position.x = x;
     position.y = y;
     diameter = size;
-    inPlay = true;
+    inPlay = false;
   }
 
   void show() {
@@ -31,9 +31,12 @@ class Ball {
       speed.y *= -1;
   }
 
-  void checkOffScreen() {
-    if (position.y > height + diameter/2)
+  boolean checkOffScreen() {
+    if (position.y > height + diameter/2) {
       inPlay = false;
+      return true;
+    }
+    return false;
   }
 
   boolean checkPaddle(Paddle paddle) {
@@ -51,7 +54,7 @@ class Ball {
     return (abs(position.y - paddle.position.y) <= paddle.paddleHeight/2 + diameter/2 &&    //Check if the ball is touching the paddle
       position.y < paddle.position.y &&                                                     //Check if the ball is below the paddle
       position.x + diameter/2 > paddle.position.x - paddle.paddleWidth/2 &&                 //Check if the ball is to the right of the left side of the paddle 
-      position.x - diameter/2 < paddle.position.x + paddle.paddleWidth/2);                  //Check if the ball is to the left of the right side of the paddle                                                      
+      position.x - diameter/2 < paddle.position.x + paddle.paddleWidth/2);                  //Check if the ball is to the left of the right side of the paddle
   }
 
   boolean checkPaddleLeft(Paddle paddle) {
@@ -67,4 +70,40 @@ class Ball {
       position.y - diameter/2 < paddle.position.y + paddle.paddleHeight/2 &&                //Check if the ball is above the bottom of the paddle
       position.y + diameter/2 > paddle.position.y - paddle.paddleHeight/2);                 //Check if the ball is below the top of the paddle
   }
+
+
+/*
+  boolean checkBrick(Brick brick) {
+    return(checkBrickTop(brick) || checkBrickBottom(brick) || checkBrickLeft(brick) || checkBrickRight(brick));
+  }
+
+  boolean checkBrickTop(Brick brick) {
+    return (abs(position.y - brick.position.y) <= brick.brickHeight/2 + diameter/2 &&    //Check if the ball is touching the brick
+      position.y > brick.position.y &&                                                     //Check if the ball is above the brick
+      position.x + diameter/2 > brick.position.x - brick.brickWidth/2 &&                 //Check if the ball is to the right of the left side of the brick 
+      position.x - diameter/2 < brick.position.x + brick.brickWidth/2);                  //Check if the ball is to the left of the right side of the brick
+  }
+
+  boolean checkBrickBottom(Brick brick) {
+    return (abs(position.y - brick.position.y) <= brick.brickHeight/2 + diameter/2 &&    //Check if the ball is touching the brick
+      position.y < brick.position.y &&                                                     //Check if the ball is below the brick
+      position.x + diameter/2 > brick.position.x - brick.brickWidth/2 &&                 //Check if the ball is to the right of the left side of the brick 
+      position.x - diameter/2 < brick.position.x + brick.brickWidth/2);                  //Check if the ball is to the left of the right side of the brick
+  }
+
+  boolean checkBrickLeft(Brick brick) {
+    return (abs(position.x - brick.position.x) <= brick.brickWidth/2 + diameter/2 &&     //Check if the ball is touching the brick
+      position.x < brick.position.x &&                                                     //Check if the ball is on the left side of the brick
+      position.y - diameter/2 < brick.position.y + brick.brickHeight/2 &&                //Check if the ball is above the bottom of the brick
+      position.y + diameter/2 > brick.position.y - brick.brickHeight/2);                 //Check if the ball is below the top of the brick
+  }
+
+  boolean checkBrickRight(Brick brick) {
+    return (abs(position.x - brick.position.x) <= brick.brickWidth/2 + diameter/2 &&     //Check if the ball is touching the brick
+      position.x > brick.position.x &&                                                     //Check if the ball is on the right side of the brick
+      position.y - diameter/2 < brick.position.y + brick.brickHeight/2 &&                //Check if the ball is above the bottom of the brick
+      position.y + diameter/2 > brick.position.y - brick.brickHeight/2);                 //Check if the ball is below the top of the brick
+  }
+  
+  */
 }
